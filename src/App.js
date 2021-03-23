@@ -1,34 +1,19 @@
-import React, { useState } from 'react';
-import {Button} from '@material-ui/core';
+import React from 'react';
 import './App.css';
 
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import MainPage from './components/Main';
+import NextPage from './components/Next';
+
 function App() {
-  const [input, setInput] = useState('');
-  const [messages, setMessages] = useState([]);
-
-  console.log(input)
-  console.log(messages)
-
-  const sendMessage = (event) => {
-    event.preventDefault();
-    // all logic to send message goes here
-    setMessages([...messages, input]);
-    setInput('');
-  }
 
   return (
-    <div className="App">
-      <header className="App-header">
-     <h1>Adding content</h1>
-     <form>
-     <input value={input} onChange={event => setInput(event.target.value)}/>
-     <Button disabled={!input} variant="contained" color="primary" type="submit" onClick={sendMessage}>Send Message</Button>
-     </form>
-     {messages.map(message => (
-       <p>{message}</p>
-     ))}
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={MainPage}/>
+        <Route exact path="/Next" component={NextPage}/>
+      </Switch>
+    </Router>
   );
 }
 
