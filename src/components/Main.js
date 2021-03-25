@@ -3,6 +3,7 @@ import {Button, FormControl, InputLabel, Input} from '@material-ui/core';
 import '../App.css';
 import { Link } from 'react-router-dom';
 
+import db from '../firebase';
 import Message from './Message';
 
 function MainPage() {
@@ -12,6 +13,14 @@ function MainPage() {
 
   // console.log(input)
   // console.log(messages)
+
+  useEffect(() => {
+    //run when app componment loads
+    db.collection('messages').onSnapshot(snapshot => {
+      setMessages(snapshot.docs.map(doc => doc.data()))
+    });
+  }, [])
+
 
   useEffect(() => {
     setUsername(prompt('Please enter your name'))
