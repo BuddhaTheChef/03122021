@@ -3,6 +3,7 @@ import {Button, FormControl, InputLabel, Input} from '@material-ui/core';
 import '../App.css';
 import { Link } from 'react-router-dom';
 
+import firebase from 'firebase';
 import db from '../firebase';
 import Message from './Message';
 
@@ -16,7 +17,7 @@ function MainPage() {
 
   useEffect(() => {
     //run when app componment loads
-    db.collection('messages').onSnapshot(snapshot => {
+    db.collection('messages').orderBy('timestamp', 'asc').onSnapshot(snapshot => {
       setMessages(snapshot.docs.map(doc => doc.data()))
     });
   }, [])
@@ -29,7 +30,12 @@ function MainPage() {
   const sendMessage = (event) => {
     event.preventDefault();
     // all logic to send message goes here
-    setMessages([...messages, {username: username, text: input}]);
+
+    db.collection('messages').add({
+      text: input,
+      username: username,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    })
     setInput('');
   }
 
