@@ -9,6 +9,24 @@ body {
   display: flex;
   justify-content: center;
 }
+.App-header {
+  margin-bottom: 90px;
+}
+
+form {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: rebeccapurple;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.button-form {
+  background-color: rgb(52, 52, 196)!important;
+  color: white !important;
+}
 
 .message {
   padding: 10px;

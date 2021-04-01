@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {Button, FormControl, InputLabel, Input} from '@material-ui/core';
 import '../App.css';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,13 @@ function MainPage() {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([]);
   const [username, setUsername] = useState('');
+  const messagesEndRef = useRef(null)
 
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+  useEffect(scrollToBottom, [messages]);
   // console.log(input)
   // console.log(messages)
 
@@ -46,17 +52,18 @@ function MainPage() {
       <header className="App-header">
      <h1>Live message board</h1>
      <h2>Welcome {username}</h2>
-     <form>
-       <FormControl>
-         <InputLabel>Enter a message...</InputLabel>
-         <Input value={input} onChange={event => setInput(event.target.value)}/>
-         <Button disabled={!input} variant="contained" color="primary" type="submit" onClick={sendMessage}>Send Message</Button>
-       </FormControl>
-     </form>
      {messages.map(message => (
        <Message username={username} message={message} />
      ))}
+     <div ref={messagesEndRef} />
       </header>
+      <form>
+       <FormControl>
+         <InputLabel>Enter a message...</InputLabel>
+         <Input value={input} onChange={event => setInput(event.target.value)}/>
+         <Button className="button-form" disabled={!input} variant="contained" color="primary" type="submit" onClick={sendMessage}>Send Message</Button>
+       </FormControl>
+     </form>
     </div>
   );
 }
