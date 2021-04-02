@@ -58,9 +58,9 @@ function MainPage() {
      <div ref={messagesEndRef} />
       </header>
       <form>
-       <FormControl>
-         <InputLabel>Enter a message...</InputLabel>
-         <Input value={input} onChange={event => setInput(event.target.value)}/>
+       <FormControl style={{marginBottom:'17px'}}>
+         <InputLabel style={{color:'white'}}>Enter a message...</InputLabel>
+         <Input style={{marginBottom:'7px'}} value={input} onChange={event => setInput(event.target.value)}/>
          <Button className="button-form" disabled={!input} variant="contained" color="primary" type="submit" onClick={sendMessage}>Send Message</Button>
        </FormControl>
      </form>
